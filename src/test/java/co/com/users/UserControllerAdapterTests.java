@@ -2,6 +2,7 @@ package co.com.users;
 
 import co.com.users.adapter.controller.model.UserRequest;
 import co.com.users.adapter.controller.model.UserResponse;
+import co.com.users.adapter.controller.model.UserUpdateRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -249,6 +250,62 @@ class UserControllerAdapterTests {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().is4xxClientError())
                 .andExpect(jsonPath("$.mensaje", is("user not found")));
+
+    }
+
+    @Test
+    public void findAnUserInvalidInternalError() throws Exception {
+
+        mvc.perform(MockMvcRequestBuilders
+                .get("/user/" + null)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().is5xxServerError())
+                .andExpect(jsonPath("$.mensaje", is("Invalid UUID string: null")));
+
+    }
+
+    @Test
+    public void createNewUserAfterUpdateUserAndFindNewChangesSuccess() throws Exception {
+
+        List<UserRequest.PhonesRequest> phones = new ArrayList<>();
+
+        phones.add(UserRequest.PhonesRequest.builder()
+                .number("315897563214")
+                .cityCode("59")
+                .countryCode("10")
+                .build());
+
+        UserRequest requestCreateUser = UserRequest.builder()
+                .name("Jairo Boada")
+                .email("jairo9100@gmail.com")
+                .password("MyNewPassword91")
+                .phones(phones)
+                .build();
+
+        UserUpdateRequest requestUpdateUser = UserUpdateRequest.builder()
+                .name("Jairo Ayala")
+                .isActive(false)
+                .build();
+
+        MvcResult userResponseJson = mvc.perform(
+                MockMvcRequestBuilders.post("/user")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestCreateUser)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.isactive", is(true)))
+                .andReturn();
+
+        UserResponse userResponse = objectMapper.readValue(userResponseJson.getResponse().getContentAsString(), UserResponse.class);
+
+        mvc.perform(
+                MockMvcRequestBuilders.put("/user/" + userResponse.getId().toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestUpdateUser)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.isactive", is(false)))
+                .andReturn();
 
     }
 }

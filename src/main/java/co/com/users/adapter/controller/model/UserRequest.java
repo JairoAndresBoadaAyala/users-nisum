@@ -1,5 +1,6 @@
 package co.com.users.adapter.controller.model;
 
+import co.com.users.domain.Phone;
 import co.com.users.domain.User;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -42,7 +43,7 @@ public class UserRequest {
                 .phones(phones
                         .stream()
                         .map(p ->
-                                User.Phone.builder()
+                                Phone.builder()
                                         .number(p.number)
                                         .cityCode(p.cityCode)
                                         .countryCode(p.countryCode)

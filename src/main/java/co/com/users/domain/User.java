@@ -2,7 +2,6 @@ package co.com.users.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Value;
 
 import java.util.List;
 
@@ -15,13 +14,4 @@ public class User {
     String password;
     List<Phone> phones;
 
-
-    @Builder
-    @Value
-    public static class Phone {
-
-        String number;
-        String cityCode;
-        String countryCode;
-    }
 }

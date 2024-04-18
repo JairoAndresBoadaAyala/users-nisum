@@ -40,6 +40,7 @@ public class FindUserUseCase implements UserQuery {
                         .countryCode(p.getCountryCode())
                         .build()
                 ).collect(Collectors.toList()))
+                .isActive(userEntity.getState())
                 .build();
     }
 }

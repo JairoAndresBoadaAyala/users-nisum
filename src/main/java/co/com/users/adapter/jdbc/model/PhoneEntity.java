@@ -1,6 +1,6 @@
 package co.com.users.adapter.jdbc.model;
 
-import co.com.users.domain.User;
+import co.com.users.domain.Phone;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,7 +32,7 @@ public class PhoneEntity {
     @Column(name = "user_id")
     private String userId;
 
-    public static List<PhoneEntity> toEntity(String userId, List<User.Phone> phone) {
+    public static List<PhoneEntity> toEntity(String userId, List<Phone> phone) {
 
         return phone.stream().map(p ->
                 PhoneEntity.builder()

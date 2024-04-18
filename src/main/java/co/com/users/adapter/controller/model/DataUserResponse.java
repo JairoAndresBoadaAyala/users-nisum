@@ -18,6 +18,8 @@ public class DataUserResponse {
     String email;
     String password;
     List<DataPhoneResponse> phones;
+    @JsonProperty("isactive")
+    Boolean isActive;
 
     @Builder
     @Value

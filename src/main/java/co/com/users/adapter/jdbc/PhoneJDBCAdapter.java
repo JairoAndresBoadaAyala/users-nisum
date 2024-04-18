@@ -3,7 +3,7 @@ package co.com.users.adapter.jdbc;
 import co.com.users.adapter.jdbc.jpa.PhoneJPARepository;
 import co.com.users.adapter.jdbc.model.PhoneEntity;
 import co.com.users.application.port.out.PhoneRepository;
-import co.com.users.domain.User;
+import co.com.users.domain.Phone;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class PhoneJDBCAdapter implements PhoneRepository {
     }
 
     @Override
-    public void create(UUID userId, List<User.Phone> phone) {
+    public void create(UUID userId, List<Phone> phone) {
 
         List<PhoneEntity> phoneEntity = PhoneEntity.toEntity(userId.toString(), phone);
 

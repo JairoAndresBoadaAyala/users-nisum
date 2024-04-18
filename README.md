@@ -11,7 +11,7 @@
 
 
 ## Definicion de la solucion
-Se creo una API rest donde se expusieron 2 servicios para crear un usuario y otro para consultarlo.
+Se creo una API rest donde se expusieron 3 servicios para crear un usuario, actualizar usuario y otro para consultarlo.
 
 ## Servicio POST
 1. El Path debe ser `http://localhost:8083/user`  y el método HTTP tipo **POST**: permite crear un usuario con las siguientes validaciones
@@ -69,7 +69,7 @@ Se creo una API rest donde se expusieron 2 servicios para crear un usuario y otr
     ```
    
 ## Servicio GET   
-2. El path debe ser `http://localhost:8083/user/{id}` y el método HTTP tipo **GET**, donde la variable  **{id}** 
+1. El path debe ser `http://localhost:8083/user/{id}` y el método HTTP tipo **GET**, donde la variable  **{id}** 
 corresponde al identificador con el cual se almacenó el usuario en la base de datos, explicado en el primer punto.
    El siguiente es un ejemplo de petición y un ejemplo de cómo debería ser la respuesta en un caso exitoso  
    Petición  path: `http://localhost:8083/user/47f2739f-429d-4d8c-b488-64abc5790d02` método: **GET**
@@ -90,6 +90,41 @@ corresponde al identificador con el cual se almacenó el usuario en la base de d
         }
     ```
    
+## Servicio PUT
+
+1. El path debe ser `http://localhost:8083/user/{id}` y el método HTTP tipo **PUT**, donde la variable  **{id}** 
+corresponde al identificador con el cual se almacenó el usuario en la base de datos, explicado en el primer punto.
+
+2. Los campos que se habilitaron para ser modificados fueron el **name** y el **isactive** .
+
+ ```json
+        {
+          "name": "Jairo Guarin",
+          "isactive": false
+        }
+```
+
+  **Ejemplo de petición y respuesta exitosa**  
+   Petición  path: `http://localhost:8083/user/ce2b1022-7847-4923-be42-3eebd0974a51` método: **PUT**
+  
+   ```json
+          {
+            "name": "Jairo Guarin",
+            "isactive": false
+          }
+  ```
+   **Respuesta exitosa**
+
+     ```json
+             {
+                "id": "47f2739f-429d-4d8c-b488-64abc5790d02",
+                "created": "2024-04-18T00:01:30.099",
+                "modified": "2024-04-18T00:01:30.099",
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJKYWlybyBBeWFsYSIsImlhdCI6MTcxMzQxNjQ5MCwiZXhwIjoxNzEzNDIwMDkwfQ.VkVgHTbkosLQLLjF_kEZbFh28ktlYy4tRdT9x5eCSTM",
+                "last_login": "2024-04-18T00:01:30.099",
+                "isactive": true
+             }
+    ```    
    
 ## Script de la Base de datos
 
